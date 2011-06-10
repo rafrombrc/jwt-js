@@ -146,7 +146,9 @@ var JWTInternals = (function() {
     },
     verify: function _verify(sig)
     {
-      var result = this.keyPEM.verifyString(this.data, b64urltohex(sig));
+      var rsa = new RSAKey();
+      rsa.readPrivateKeyFromPEMString(this.keyPEM);
+      var result = rsa.verifyString(this.data, b64urltohex(sig));
       return result;
     }
   }
